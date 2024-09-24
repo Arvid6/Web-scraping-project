@@ -24,7 +24,7 @@ def webCrawler(key, reg, wide):
 
     #https://www.jpinfonet.se/
     for x in key:
-        start_urls.extend(getSeach(x, 1, reg)) # GET URLS FROM SEARCH WORDS
+        start_urls.extend(getSeach(x, 1, reg))  # GET URLS FROM SEARCH WORDS
         print(x)
 
     print(start_urls)
