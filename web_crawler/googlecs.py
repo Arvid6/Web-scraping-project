@@ -3,7 +3,7 @@
 from serpapi import GoogleSearch
 
 
-def getSeach(word, num, reg):
+def getSeach(word, num, loc, hl, gl):
     """
         Get search results URLs from Google based on search words.
 
@@ -15,18 +15,13 @@ def getSeach(word, num, reg):
         Returns:
             list: A list of URLs representing the search results.
     """
-    blacklist = ["allabolag.se", "merinfo.se", "bolagsfakta.se", "proff.se", "hitta.se", "ratsit.se", "creditsafe.com",
-                 "s360digital.com", "vinjournalen.se", "largestcompanies.com", "axfood.se", "facebook.com",
-                 "instagram.com", "wikipedia.org", "infoo.se", "arbetsformedlingen.se", "linkedin.com", "mrkoll.se",
-                 "kreditrapporten.se", "mynewsdesk.com", "largestcompanies.se", "nyteknik.se", "eniro.se",
-                 "tekniklagret.se", "datanyze.com", "starkabolag.se", "zoominfo.com", "bizzdo.se", "industritorget.se",
-                 "kompass.com", "twitter.com", "x.com", "wiktionary.org", "youtube.com", "spotify.com", "expressen.se", "infinera.com", "mau.se", "campusnykoping.se",
-                 "su.se", "gu.se"]
+    blacklist = ["wikipedia.org", "gmail.com", "yahoo.com", "youtube.com", "instagram.com", "facebook.com",
+                 "twitter.com", "linkedin.com", "x.com", "whatsapp.com", "reddit.com" , "amazon.com", "tiktok.com"]
     params = {
         "q": word,
-        "location": reg,  # OPTIONAL
-        "hl": "sv",  # OPTIONAL
-        "gl": "se",  # OPTIONAL
+        "location": loc,  # OPTIONAL
+        "hl": hl,  # OPTIONAL
+        "gl": gl,  # OPTIONAL
         "google_domain": "google.se",
         "api_key": "" #PUT API KEY HERE
     }
