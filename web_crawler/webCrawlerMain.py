@@ -3,7 +3,7 @@ from googlecs import getSeach
 from web_crawler.spiders.infoCrawler import infoCrawler
 
 
-def webCrawler(key, wide, reg, hl, gl):
+def webCrawler(key, wide, reg, hl, gl, look):
     """
         Perform web crawling to gather information about companies based on NACE code and region.
 
@@ -37,6 +37,7 @@ def webCrawler(key, wide, reg, hl, gl):
     for x in key:
         start_urls.extend(getSeach(x, orph, reg, hl, gl))  # GET URLS FROM SEARCH WORDS
         print(x)
+        print("Hejsan")
 
     print(start_urls)
     process = CrawlerProcess(settings={
@@ -46,15 +47,15 @@ def webCrawler(key, wide, reg, hl, gl):
         'FEED_URI': 'output.json'  # OUTPUT FILE
     })
 
-    process.crawl(infoCrawler, start_urls=start_urls, keywords=key)
+    process.crawl(infoCrawler, start_urls=start_urls, keywords=look)
     process.start()  # START THE CRAWL
 
 # ('26300', 'Stockholm')
 
-def testSpider(keywords):
-    start_urls = ["https://www.lpsignal.se"]
-    #keywords = ['Reprocessing', 'Mechanical demanufacturing ',
-    #            "Recycling", "kontakt"]
+def testSpider():
+    start_urls = ["https://www.lpsignal.se", "https://www.rocktechnology.sandvik/"]
+    keywords = ['Reprocessing', 'Mechanical demanufacturing ',
+                "Recycling", "kontakt", "produkt", "products", "contact"]
     process = CrawlerProcess(settings={
         'assistant': 'getinfo',
         'ROBOTSTXT_OBEY': False,
@@ -64,3 +65,6 @@ def testSpider(keywords):
 
     process.crawl(infoCrawler, start_urls=start_urls, keywords=keywords)
     process.start()  # START THE CRAWL
+
+
+#testSpider()

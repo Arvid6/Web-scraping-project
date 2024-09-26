@@ -1,5 +1,3 @@
-
-
 clist = {
     "Finland": ["fi", "Finnish", "fi"],
     "Austria": ["at", "German", "de"],
@@ -9,7 +7,8 @@ clist = {
     "Spain": ["es", "Spanish", "es"],
     "Italy": ["it", "Italian", "it"],
     "France": ["fr", "French", "fr"],
-    "United Kingdom": ["uk", "English", "en"]
+    "United Kingdom": ["uk", "English", "en"],
+    "Sweden": ['se', 'Swedish', 'sv']
 
 }
 
@@ -20,6 +19,3 @@ def getCountry(country):
     else:
         return False
 
-
-
-print(getCountry('austRia'))

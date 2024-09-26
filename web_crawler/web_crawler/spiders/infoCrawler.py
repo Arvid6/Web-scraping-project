@@ -19,15 +19,16 @@ class infoCrawler(CrawlSpider):
         self.start_urls = start_urls if start_urls else []
         self.allowed_domains = [urlparse(url).netloc for url in self.start_urls]
         self.keywords = keywords if keywords else []
+        # Dynamically create rules
 
         self.rules = (
             Rule(LinkExtractor(allow=self.keywords), callback='parse_item', follow=True),
         )
         self._compile_rules()
         # Debugging output
-        #print(f"Start URLs: {self.start_urls}")
-        #print(f"Allowed Domains: {self.allowed_domains}")
-        #print(f"Keywords: {self.keywords}")
+        print(f"Start URLs: {self.start_urls}")
+        print(f"Allowed Domains: {self.allowed_domains}")
+        print(f"Keywords: {self.keywords}")
 
         # Debugging output
         # print(f"Rules: {self.rules}")
