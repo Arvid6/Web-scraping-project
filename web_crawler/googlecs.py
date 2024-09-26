@@ -23,7 +23,7 @@ def getSeach(word, num, loc, hl, gl):
         "hl": hl,  # OPTIONAL
         "gl": gl,  # OPTIONAL
         "google_domain": "google.se",
-        "api_key": "" #PUT API KEY HERE
+        "api_key": "5f4693b65a0e9d1a165d3581f1f4ab4dd2dab0a7a77248a0d09da6fa33d01821" #PUT API KEY HERE
     }
 
     search = GoogleSearch(params)
