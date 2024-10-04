@@ -1,6 +1,8 @@
 # pip install serpapi FÖRST
 # pip install google-search-results
 from serpapi import GoogleSearch
+from dotenv import load_dotenv
+import os
 
 
 def getSeach(word, num, loc, hl, gl):
@@ -15,6 +17,7 @@ def getSeach(word, num, loc, hl, gl):
         Returns:
             list: A list of URLs representing the search results.
     """
+    load_dotenv()
     blacklist = ["wikipedia.org", "gmail.com", "yahoo.com", "youtube.com", "instagram.com", "facebook.com",
                  "twitter.com", "linkedin.com", "x.com", "whatsapp.com", "reddit.com" , "amazon.com", "tiktok.com"]
     params = {
@@ -23,7 +26,7 @@ def getSeach(word, num, loc, hl, gl):
         "hl": hl,  # OPTIONAL
         "gl": gl,  # OPTIONAL
         "google_domain": "google.se",
-        "api_key": "5f4693b65a0e9d1a165d3581f1f4ab4dd2dab0a7a77248a0d09da6fa33d01821" #PUT API KEY HERE
+        "api_key": os.getenv("APIG") #PUT API KEY HERE
     }
 
     search = GoogleSearch(params)

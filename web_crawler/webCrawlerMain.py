@@ -37,14 +37,14 @@ def webCrawler(key, wide, reg, hl, gl, look):
     for x in key:
         start_urls.extend(getSeach(x, orph, reg, hl, gl))  # GET URLS FROM SEARCH WORDS
         print(x)
-        print("Hejsan")
 
     print(start_urls)
     process = CrawlerProcess(settings={
         'assistant': 'getinfo',
         'ROBOTSTXT_OBEY': False,
         'FEED_FORMAT': 'json',  # OUTPUT FORMAT
-        'FEED_URI': 'output.json'  # OUTPUT FILE
+        'FEED_URI': 'output.json',  # OUTPUT FILE
+        'FEED_EXPORT_ENCODING': 'utf-8'  # Ensure correct encoding
     })
 
     process.crawl(infoCrawler, start_urls=start_urls, keywords=look)

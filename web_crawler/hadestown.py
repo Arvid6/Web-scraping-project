@@ -2,12 +2,14 @@ from translate import translate
 from webCrawlerMain import webCrawler
 from countrylist import getCountry
 import googlecs
+from regedit import clearjson, getdict
 #from NLP.nlp import start_NLP
 
 
 # start gui
 # INPUTS: Keywords, Country, City/Providence (list?), Normal or bigger search.
 def startprogram():
+    clearjson('output.json')
     k = True
     keywords = []
     otherwords = []
@@ -25,6 +27,8 @@ def startprogram():
         else:
             otherwords.append(temp)
     country = input("Type country to search")
+    while country == False:
+        country = input("Type country to search")
     lang = getCountry(country)
     print(lang)
     transkey = []
@@ -34,11 +38,13 @@ def startprogram():
     for word in otherwords:
         transsearch.append(translate(word, country))
     keywords += transkey
-    otherwords +=  transsearch
+    otherwords += transsearch
     print(keywords)
-    wide = False
+    wide = True
 
-    webCrawler(keywords, wide, lang[0], lang[3], lang[1], keywords + otherwords) #Creates Output.json file.
+    webCrawler(keywords, wide, lang[0], lang[3], lang[1], otherwords) #Creates Output.json file.
+
+    getdict('output.json')
 
     print("Done!")
 

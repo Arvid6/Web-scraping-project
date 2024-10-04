@@ -5,6 +5,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+import tldextract
 
 
 class infoCrawler(CrawlSpider):
@@ -45,6 +46,8 @@ class infoCrawler(CrawlSpider):
 
         data = ' '.join(chunk for chunk in heat.get_text().split() if chunk)
 
-        momentan_data = data
+        extracted = tldextract.extract(response.url)
+        domain = f"{extracted.domain}.{extracted.suffix}"
+        website = str(response.url)[8:]
 
-        return {str(response.url)[8:]: momentan_data}
+        return {domain: {website: data}}
