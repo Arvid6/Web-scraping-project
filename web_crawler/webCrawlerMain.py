@@ -30,7 +30,7 @@ def webCrawler(key, wide, reg, hl, gl, look):
     # https://www.jpinfonet.se/
 
     if wide:
-        orph = 3
+        orph = 7
     else:
         orph = 1
 
@@ -43,7 +43,7 @@ def webCrawler(key, wide, reg, hl, gl, look):
         'assistant': 'getinfo',
         'ROBOTSTXT_OBEY': False,
         'FEED_FORMAT': 'json',  # OUTPUT FORMAT
-        'FEED_URI': 'output.json',  # OUTPUT FILE
+        'FEED_URI': 'rawdataoutput.json',  # OUTPUT FILE
         'FEED_EXPORT_ENCODING': 'utf-8'  # Ensure correct encoding
     })
 
@@ -60,7 +60,7 @@ def testSpider():
         'assistant': 'getinfo',
         'ROBOTSTXT_OBEY': False,
         'FEED_FORMAT': 'json',  # OUTPUT FORMAT
-        'FEED_URI': 'output.json'  # OUTPUT FILE
+        'FEED_URI': 'rawdataoutput.json'  # OUTPUT FILE
     })
 
     process.crawl(infoCrawler, start_urls=start_urls, keywords=keywords)

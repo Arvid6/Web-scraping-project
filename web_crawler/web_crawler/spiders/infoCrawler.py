@@ -6,13 +6,16 @@ from scrapy.spiders import CrawlSpider, Rule
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import tldextract
+import requests
+from io import BytesIO
+from PyPDF2 import PdfReader
 
 
 class infoCrawler(CrawlSpider):
     name = "getinfo"
     custom_settings = {
-        'DEPTH_LIMIT': 1,
-        'DOWNLOAD_TIMEOUT': 10,
+        'DEPTH_LIMIT': 3,
+        'DOWNLOAD_TIMEOUT': 7,
     }
 
     def __init__(self, start_urls=None , keywords=None, *args, **kwargs):
@@ -27,18 +30,23 @@ class infoCrawler(CrawlSpider):
         )
         self._compile_rules()
         # Debugging output
-        print(f"Start URLs: {self.start_urls}")
-        print(f"Allowed Domains: {self.allowed_domains}")
-        print(f"Keywords: {self.keywords}")
+        # print(f"Start URLs: {self.start_urls}")
+        # print(f"Allowed Domains: {self.allowed_domains}")
+        # print(f"Keywords: {self.keywords}")
 
         # Debugging output
         # print(f"Rules: {self.rules}")
 
-    def parse_start_url(self, response):
-        return self.parse_item(response)
+    #def parse_start_url(self, response):
+    #    return self.parse_item(response)
 
     def parse_item(self, response):
-        #if any(keyword in response.url for keyword in self.keywords):
+        if 'text/html' not in response.headers.get('Content-Type', b'').decode('utf-8'):
+            if response.url.endswith('.pdf') or response.url.endswith('.pdf.aspx'):
+                return self.handlePDF(response)  # Process PDFs
+            self.logger.info(f"Skipping non-HTML response: {response.url}")
+            return
+        # If any(keyword in response.url for keyword in self.keywords):
         heat = BeautifulSoup(response.text, features="html.parser")
 
         for script in heat(["script", "style"]):
@@ -51,3 +59,17 @@ class infoCrawler(CrawlSpider):
         website = str(response.url)[8:]
 
         return {domain: {website: data}}
+
+    def handlePDF(self, response):
+        pdf_file = BytesIO(response.body)
+        reader = PdfReader(pdf_file)
+        text = ''
+        for page in reader.pages:
+            text += page.extract_text() or ''
+
+        extracted = tldextract.extract(response.url)
+        domain = f"{extracted.domain}.{extracted.suffix}"
+        website = str(response.url)[8:]
+
+        # Structure the output for the PDF as well
+        return {domain: {website: text}}

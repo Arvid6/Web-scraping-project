@@ -1,5 +1,6 @@
 import json
 from translate import translate
+from textsum import extract_text
 
 
 def clearjson(text):
@@ -18,7 +19,7 @@ def merge_dicts(*dicts):
     return final_dict
 
 
-def getdict(text):
+def getdict(text, words, outputname):
     with open(text, 'r', encoding="utf8") as file:
         data = json.load(file)  # Load the entire file as a list of dictionaries
 
@@ -30,10 +31,14 @@ def getdict(text):
         # Ensure current_dict is a dictionary
         if isinstance(current_dict, dict):
             for domain, websites in current_dict.items():
-                if domain not in merged_dict:
-                    merged_dict[domain] = {}
-                merged_dict[domain].update(websites)
-
-    with open('merged_output.json', 'w', encoding='utf8') as file:
+                if extract_text(str(websites), words):
+                    if domain not in merged_dict:
+                        merged_dict[domain] = {}
+                    merged_dict[domain].update(websites)
+    #for x in merged_dict:
+    #    for y in merged_dict[x]:
+    #        print(merged_dict[x][y])
+    outputname += ".json"
+    with open(outputname, 'w', encoding='utf8') as file:
         json.dump(merged_dict, file, ensure_ascii=False, indent=4)
 

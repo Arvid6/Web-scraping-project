@@ -1,56 +1,54 @@
-from translate import translate
+from translate import translate, translatelist
 from webCrawlerMain import webCrawler
 from countrylist import getCountry
 import googlecs
 from regedit import clearjson, getdict
-#from NLP.nlp import start_NLP
+
+# from NLP.nlp import start_NLP
 
 
 # start gui
 # INPUTS: Keywords, Country, City/Providence (list?), Normal or bigger search.
-def startprogram():
-    clearjson('output.json')
+def scrape(searchwords, keywords, country, region, outputname):
+    clearjson('rawdataoutput.json')
     k = True
-    keywords = []
-    otherwords = []
-    while k:
-        temp = input('Enter your keywords you want to use for the search, Done when done:')
-        if temp.title() == 'Done':
-            k = False
-        else:
-            keywords.append(temp)
-    k = True
-    while k:
-        temp = input('Enter your other keywords, Done when done:')
-        if temp.title() == 'Done':
-            k = False
-        else:
-            otherwords.append(temp)
-    country = input("Type country to search")
-    while country == False:
-        country = input("Type country to search")
-    lang = getCountry(country)
-    print(lang)
-    transkey = []
-    transsearch = []
-    for key in keywords:
-        transkey.append(translate(key, country))
-    for word in otherwords:
-        transsearch.append(translate(word, country))
+    # keywords = ["reprocessing", "recycling", "waste"]
+    # searchwords = ["environmental legislation", "reprocessing legislation", "recycling legislation", "waste legislation"]
+    otherwords = ["legislation", "regulation", "directive", "treary", "report", "incentives", "legislations",
+                  "regulation", "directives", "treatys", "reports", "Legislation", "Regulation", "Directive",
+                  "Legislations", "Regulations", "Directives", "Treatys", "Reports", "Incentives"]
+    temp = []
+    for x in searchwords:
+        temp.append(x + " legislation")
+    searchwords = temp
+    lang = getCountry(country)  # Get language from country
+    transkey = translatelist(keywords, country)
+    searchkey = translatelist(searchwords, country)
+    transsearch = translatelist(otherwords, country)
     keywords += transkey
+    searchwords += searchkey
     otherwords += transsearch
+    print("KEYWORDS")
     print(keywords)
     wide = True
 
-    webCrawler(keywords, wide, lang[0], lang[3], lang[1], otherwords) #Creates Output.json file.
+    webCrawler(searchkey, wide, region, lang[3], lang[1], otherwords)  # Creates Output.json file.
 
-    getdict('output.json')
+    getdict('rawdataoutput.json', keywords, outputname)
 
     print("Done!")
 
     return 0
 
-startprogram()
+
+def sort_list(keywords, country, outputname):
+    lang = getCountry(country)
+    transkey = []
+    for key in keywords:  # Translate the different words into correct language
+        transkey.append(translate(key, country))
+    getdict('rawdataoutput.json', keywords,outputname)
+
+# scrape()
 # Take keywords, translate them to the languege of the country and include them in the search.
 # Search the keywords using webCrawlerMain
 # Send the data from the search to the NLP bot to sort it
