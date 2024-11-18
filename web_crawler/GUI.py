@@ -1,4 +1,4 @@
-from hadestown import scrape, sort_list
+from projmain import scrape, sort_list
 import tkinter as tk
 from tkinter import ttk
 import json
@@ -58,7 +58,7 @@ def updateText(event):
 
     # Get the corresponding text
     text = json_output[selected_domain].get(selected_url, "No text available.")
-    if len(text) > 10000:
+    if len(text) > 30000:
         output_text.config(state=tk.NORMAL)  # Enable the text box
         output_text.delete(1.0, tk.END)  # Clear existing text
         output_text.insert(tk.END, "text to long to display")  # Insert the corresponding text
@@ -97,9 +97,12 @@ def mainprogram():
     print(keywords)
     lang = country_combobox.get()
     region = region_combobox.get()
+    sensetivity = sen.get()
+    depth = dep.get()
+    results = res.get()
     global outputname
     outputname = name.get()
-    scrape(searchwords, keywords, lang, region, outputname)
+    scrape(searchwords, keywords, lang, region, outputname, sensetivity, depth, results)
     #scrapeprogram(searchwords, keywords, lang, region)
     #sortprogram(keywords, cl)
     global json_output
@@ -113,12 +116,13 @@ root.title("Web Scraper GUI")
 
 searchwords = []
 keywords = []
-# URL Entry
+# Searchword entry
 tk.Label(root, text="Enter Search Word:").grid(row=0, column=0, padx=10, pady=10)
 searchword = tk.Entry(root, width=40)
 searchword.grid(row=0, column=1, padx=10, pady=10)
 run_button = tk.Button(root, text="Add Search Word", command=addSearch)
 run_button.grid(row=0, column=2, padx=10, pady=10)
+# Keyword entry
 tk.Label(root, text="Enter keyword:").grid(row=1, column=0, padx=10, pady=10)
 keyword = tk.Entry(root, width=40)
 keyword.grid(row=1, column=1, padx=10, pady=10)
@@ -151,7 +155,20 @@ run_button.grid(row=6, column=1, pady=20)
 
 # Output Text Box
 searchparams = tk.Text(root, wrap=tk.WORD, width=75, height=15)
-searchparams.grid(row=7, columnspan=3, padx=10, pady=10)
+searchparams.grid(row=7, columnspan=4, padx=10, pady=10)
+tk.Label(root, text="Settings:").grid(row=8, column=0, padx=10, pady=10)
+tk.Label(root, text="Sensetivity:").grid(row=9, column=0, padx=10, pady=10)
+sen = tk.Scale(root, from_=0, to=60, orient=tk.HORIZONTAL)
+sen.grid(row=9, column=1, padx=10, pady=10)
+sen.set(10)
+tk.Label(root, text="Search depth:").grid(row=10, column=0, padx=10, pady=10)
+dep = tk.Scale(root, from_=1, to=6, orient=tk.HORIZONTAL)
+dep.grid(row=10, column=1, padx=10, pady=10)
+dep.set(3)
+tk.Label(root, text="Results per Searchterm:").grid(row=11, column=0, padx=10, pady=10)
+res = tk.Scale(root, from_=1, to=10, orient=tk.HORIZONTAL)
+res.grid(row=11, column=1, padx=10, pady=10)
+res.set(7)
 
 # Create the second window
 def displaywindow():

@@ -14,8 +14,7 @@ from PyPDF2 import PdfReader
 class infoCrawler(CrawlSpider):
     name = "getinfo"
     custom_settings = {
-        'DEPTH_LIMIT': 3,
-        'DOWNLOAD_TIMEOUT': 7,
+        'DOWNLOAD_TIMEOUT': 10,
     }
 
     def __init__(self, start_urls=None , keywords=None, *args, **kwargs):
@@ -36,9 +35,6 @@ class infoCrawler(CrawlSpider):
 
         # Debugging output
         # print(f"Rules: {self.rules}")
-
-    #def parse_start_url(self, response):
-    #    return self.parse_item(response)
 
     def parse_item(self, response):
         if 'text/html' not in response.headers.get('Content-Type', b'').decode('utf-8'):
@@ -71,5 +67,4 @@ class infoCrawler(CrawlSpider):
         domain = f"{extracted.domain}.{extracted.suffix}"
         website = str(response.url)[8:]
 
-        # Structure the output for the PDF as well
         return {domain: {website: text}}

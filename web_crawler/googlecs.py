@@ -19,8 +19,7 @@ def getSeach(word, num, loc, hl, gl):
     """
     load_dotenv()
     blacklist = ["wikipedia.org", "gmail.com", "yahoo.com", "youtube.com", "instagram.com", "facebook.com",
-                 "twitter.com", "linkedin.com", "x.com", "whatsapp.com", "reddit.com", "amazon.com", "tiktok.com",
-                 "europa.eu"]
+                 "twitter.com", "linkedin.com", "x.com", "whatsapp.com", "reddit.com", "amazon.com", "tiktok.com"]
     params = {
         "q": word,
         "location": loc,  # OPTIONAL

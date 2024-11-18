@@ -16,6 +16,15 @@ clist = {
 }
 
 def getCountry(country):
+    """
+        Gets language and region parameters from country name
+
+        Args:
+            country (str): Name of country
+
+        Returns:
+            List of relevant country params
+    """
     country = country.title()
     if country in clist.keys():
         return [country] + clist[country]
