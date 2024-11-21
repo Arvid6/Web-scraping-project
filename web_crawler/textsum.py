@@ -42,7 +42,7 @@ def extract_text(text, keywords, sensitivity):
     query = queryremover(doc)
     print(str(len(matches)) + " | " + str(len(query)))
     if len(matches) > sensitivity and len(query) == 0:
-        return True
+        return len(matches)
     else:
         return False
 

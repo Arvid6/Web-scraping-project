@@ -35,7 +35,13 @@ def getdict(text, keywords, outputname, sensetivity):
         # Ensure current_dict is a dictionary
         if isinstance(current_dict, dict):
             for domain, websites in current_dict.items():
-                if extract_text(str(websites), keywords, sensetivity):
+                a = extract_text(str(websites), keywords, sensetivity)
+                old = list(websites.keys())[0]
+                ov = websites[old]
+                new = str(a) + " " + old
+                websites[new] = ov
+                del websites[old]
+                if a:
                     if domain not in merged_dict:
                         merged_dict[domain] = {}
                     merged_dict[domain].update(websites)
