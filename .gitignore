@@ -2,3 +2,7 @@
 web_crawler/.env
 web_crawler/.env
 web_crawler/.env
+*.json
+output.json
+web_crawler/rawdataoutput.json
+web_crawler/.env
