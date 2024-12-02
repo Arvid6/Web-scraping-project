@@ -74,3 +74,7 @@ def sort_list(keywords, country, outputname, sensitivity):
 # Search the keywords using webCrawlerMain
 # Send the data from the search to the NLP bot to sort it
 # Output, file from infoCrawler is given to NLP and labled then returned as output.
+
+#key = ["environmental", "waste", "reprocessing", "recycling"]
+
+#sort_list(key, "finland", "Finlandtest2", 10)

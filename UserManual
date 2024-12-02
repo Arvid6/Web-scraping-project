@@ -1,0 +1,33 @@
+GUIDE TO USING THE PROGRAM:
+1. Run the code by: ???
+2. Input the search words. Search words will be used to find websites,
+therefor a broad set of words/phrases can be used to find a large set of data
+
+2. Input keywords. These are the words that will be used for filtering the collected data,
+ these should be related directly to the info you want to find.
+
+For example, If you want to find environmental legislations related to cars you could have the search words be:
+ "Car", "Fuel", "Transportations", "Environmental", "Waste" etc
+And the keywords be: "Car", "Fuel". That way you can find a large set of data with the search words and then only keep the relevant info.
+It should be noted that the keywords and search words, can be the exact same. Having more search words is simply an option.
+
+3. Select country and region from the dropdown.
+
+4. Input the name of the output file, This is used so the data that is collected can be stored and accessed later if needed.
+
+5. Start the search!
+
+!INFO ON SETTINGS!
+Settings can be changed if the user wants to.
+
+The sensitivity bar, is how many keyword matches needs to be in the results for it to be deemed relevant.
+If your having trouble getting results, lowering this is an option. Similarly, if your getting to many results, turning it up may be smart.
+
+The search depth bar, this decides how deep into a website the search will be. The start value is 3 which means it will look at the initial website, all website linked on that website and then finally all websites linked on those websites.
+Turning this up is generally not recommended as it makes the search take a lot longer with each increase. But it is posible if needed. Turning it down can be good if searches are taking a long time but not getting a lot of relevant results.
+
+The Results per search term bar, this bar decides how many results will be used for each search word inputted. Turning this up will get more results and turning it down will get less. However the the results it takes are the top searches on google so turning this up might not help in some situations.
+
+
+!OUTPUT WINDOW!
+The output window will be displayed after each search, use the first dropdown to select a domain and the second to view websites under that domain. The numbers are the amount of hits each website got to the keywords.
