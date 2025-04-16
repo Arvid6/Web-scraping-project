@@ -2,9 +2,10 @@ from translate import translate, translatelist
 from webCrawlerMain import webCrawler
 from countrylist import getCountry
 from regedit import clearjson, getdict
+from datetime import datetime
 
 
-def scrape(searchwords, keywords, country, region, outputname, sensitivity, depth, results):
+def scrape(searchwords, keywords, otherwords, country, region, outputname, sensitivity, depth, results):
     """
         Starts the scrape and then sorts the list of scraped websites, also translates keywords.
 
@@ -21,11 +22,9 @@ def scrape(searchwords, keywords, country, region, outputname, sensitivity, dept
         Returns:
             None
     """
+    start = datetime.now()
     clearjson('rawdataoutput.json')
 
-    otherwords = ["legislation", "regulation", "directive", "treaty", "report", "incentives", "legislations",
-                  "regulation", "directives", "treaty's", "reports", "Legislation", "Regulation", "Directive",
-                  "Legislations", "Regulations", "Directives", "Treaty's", "Reports", "Incentives"]
 
     temp = []
     for x in searchwords:
@@ -46,6 +45,9 @@ def scrape(searchwords, keywords, country, region, outputname, sensitivity, dept
 
     getdict('rawdataoutput.json', keywords, outputname, sensitivity)
 
+    now = datetime.now()
+    print(start.time())
+    print(now.time())
     print("Done!")
 
     return 0
@@ -75,6 +77,6 @@ def sort_list(keywords, country, outputname, sensitivity):
 # Send the data from the search to the NLP bot to sort it
 # Output, file from infoCrawler is given to NLP and labled then returned as output.
 
-#key = ["environmental", "waste", "reprocessing", "recycling"]
+# key = ["environmental", "waste", "reprocessing", "recycling"]
 
-#sort_list(key, "finland", "Finlandtest2", 10)
+# sort_list(key, "finland", "Finlandtest2", 10)

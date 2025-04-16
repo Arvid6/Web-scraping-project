@@ -21,7 +21,8 @@ def extract_text(text, keywords, sensitivity):
     """
     matcher = Matcher(nlp.vocab)
     queryremover = Matcher(nlp.vocab)
-    filter = ['prefLang', "languageId"]
+    filter = ['prefLang', "languageId", "locale", "utm_source", "utm_medium", "utm_content", "utm_campaign", "utm_term",
+              "pos="]
 
     # Create patterns for whole word matches
     for keyword in keywords:
@@ -41,7 +42,7 @@ def extract_text(text, keywords, sensitivity):
     matches = matcher(doc)
     query = queryremover(doc)
     print(str(len(matches)) + " | " + str(len(query)))
-    if len(matches) > sensitivity and len(query) == 0:
+    if len(matches) >= sensitivity and len(query) == 0:
         return len(matches)
     else:
         return False

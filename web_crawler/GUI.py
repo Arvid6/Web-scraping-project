@@ -6,8 +6,43 @@ import webbrowser
 from countrylist import getCountry
 
 
-def scrapeprogram(searchwords, keywords, country):
-    scrape(searchwords, keywords, country)
+
+"""
+#
+#
+#
+#
+#
+#
+#
+MANUAL INPUT OF SEARCH WORDS, KEYWORDS, FILTERWORDS
+If you dont want to input different search parameters one by one do it here.
+Do it like this structure:  searchwords = ["example1", "example2", "example3"]
+                            keywords = ["example1", "example2", ...., "example10"]
+                            filterwords = ["example1", "example2", ...., "example20"]
+"""
+searchwords = []
+#
+keywords = []
+#
+filterwords = ["legislation", "regulation", "directive", "treaty", "report", "incentives", "legislation",
+"regulations", "directives", "treaties", "reports", "Legislation", "Regulation", "Directive",
+"Legislations", "Regulations", "Directives", "Treaties", "Reports", "Incentives"]
+
+
+"""
+#
+#
+#
+#
+#
+#
+#
+"""
+
+
+def scrapeprogram(searchwords, keywords, filterwords, country):
+    scrape(searchwords, keywords, filterwords, country)
     # sort_list(filename, keywords)
 
 
@@ -29,6 +64,7 @@ def addKeyword():
         keyword.delete(0, tk.END)
         updateParams()
         print(keywords)
+
 
 
 def loadJSON():
@@ -77,7 +113,7 @@ def updateParams():
     key = "Keywords: " + str(keywords)
 
     # Get the corresponding text
-    text = srs +"\n" + key
+    text = srs + "\n" + key
 
     # Clear existing text and insert the new text
     searchparams.config(state=tk.NORMAL)  # Enable the text box
@@ -95,6 +131,8 @@ def openPage():
 def mainprogram():
     print(searchwords)
     print(keywords)
+    filterwords2 = filterwords + keywords
+    print(filterwords2)
     lang = country_combobox.get()
     region = region_combobox.get()
     sensetivity = sen.get()
@@ -102,7 +140,7 @@ def mainprogram():
     results = res.get()
     global outputname
     outputname = name.get()
-    scrape(searchwords, keywords, lang, region, outputname, sensetivity, depth, results)
+    scrape(searchwords, keywords, filterwords2, lang, region, outputname, sensetivity, depth, results)
     #scrapeprogram(searchwords, keywords, lang, region)
     #sortprogram(keywords, cl)
     global json_output
@@ -114,8 +152,8 @@ def mainprogram():
 root = tk.Tk()
 root.title("Web Scraper GUI")
 
-searchwords = []
-keywords = []
+
+
 # Searchword entry
 tk.Label(root, text="Enter Search Word:").grid(row=0, column=0, padx=10, pady=10)
 searchword = tk.Entry(root, width=40)
@@ -136,7 +174,8 @@ run_button.grid(row=1, column=2, padx=10, pady=10)
 #filter_dropdown['values'] = ("Austria", "Finland", "Portugal", "Czech Republic", "Greece", "Sweden")
 #filter_dropdown.grid(row=3, column=1, padx=10, pady=10)
 
-country_combobox = ttk.Combobox(root, values=("Austria", "Finland", "Portugal", "Czech Republic", "Greece", "Sweden"))
+country_combobox = ttk.Combobox(root, values=("Portugal", "Poland", "Croatia", "France", "Czechia", "Greece", "Spain",
+                                              "Italy", "Latvia", "Lithuania", "Hungary", "Romania", "Slovakia"))
 country_combobox.bind("<<ComboboxSelected>>", updateCountry)
 country_combobox.grid(row=3, column=1, padx=10, pady=5)
 
@@ -162,9 +201,9 @@ sen = tk.Scale(root, from_=0, to=60, orient=tk.HORIZONTAL)
 sen.grid(row=9, column=1, padx=10, pady=10)
 sen.set(10)
 tk.Label(root, text="Search depth:").grid(row=10, column=0, padx=10, pady=10)
-dep = tk.Scale(root, from_=1, to=6, orient=tk.HORIZONTAL)
+dep = tk.Scale(root, from_=1, to=5, orient=tk.HORIZONTAL)
 dep.grid(row=10, column=1, padx=10, pady=10)
-dep.set(3)
+dep.set(2)
 tk.Label(root, text="Results per Searchterm:").grid(row=11, column=0, padx=10, pady=10)
 res = tk.Scale(root, from_=1, to=10, orient=tk.HORIZONTAL)
 res.grid(row=11, column=1, padx=10, pady=10)
